@@ -1,0 +1,2 @@
+<!-- filepath: c:\Users\zaour\source\web1a\project\project-4-test\socks\resources\views\livewire\cart-count.blade.php -->
+<flux:navbar.item icon="shopping-cart" href="/cart" badge="{{ $count }}">Cart</flux:navbar.item>
