@@ -196,5 +196,5 @@ If you encounter issues, try the following:
 
 This project is open-source and available under the MIT License.
 
-[LICENSE](LICENSE.MD)
+[LICENSE](LICENSE)
 ---
