@@ -11,8 +11,8 @@ class Home extends Component
     public function tokens()
 {
     $user = Auth::User();
-$token = $user->createToken("api-token", ['product:create', '[product:read', 'product:update', 'product:delete']);
-return $token->plainTextToken;
+// $token = $user->createToken("api-token", ['product:create', '[product:read', 'product:update', 'product:delete']);
+return $user;
 }
     
     public function render()

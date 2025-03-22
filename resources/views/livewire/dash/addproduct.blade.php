@@ -44,16 +44,21 @@
 </div>
 @script
 <script>
-    $wire.on('imageUploaded', () => {
-  
-        const imageUrl = event.detail;
-            window.imageurl = imageUrl[0].url;
-            console.log(imageUrl[0].url);
-            document.getElementById('image-url').textContent = `Image URL: ${imageUrl[0].url}`;
+      Echo.channel('image-uploads')
+        .listen('.image.uploaded', (event) => {
+            const imageUrl = event.imageUrl;
+            window.imageurl = imageUrl;
+            $wire.showMessage('success', 'Image uploaded successfully');
+            document.getElementById('image-url').textContent = `Image URL: ${imageUrl}`;
             console.log('Image uploaded:', imageUrl);
-        // Clear the input field after the image has been uploaded
-    });
-
+        });
+        Echo.channel('image-uploads')
+        .listen('.image.uploaded', (event) => {
+            const imageUrl = event.imageUrl;
+            window.imageurl = imageUrl;
+            document.getElementById('image-url').textContent = `Image URL: ${imageUrl}`;
+            console.log('Image uploaded:', imageUrl);
+        });
     </script>
     <script>
         window.addEventListener('imageUploaded', event => {

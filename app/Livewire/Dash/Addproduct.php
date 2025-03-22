@@ -6,6 +6,8 @@ use Livewire\Component;
 use App\Traits\MessageTrait;
 // use Livewire\Component;
 // use dispatchBr
+use App\Events\ImageUploaded;
+use App\Events\MessageBroadcasted;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\Validate;
 class Addproduct extends Component
@@ -15,21 +17,20 @@ class Addproduct extends Component
 
     public function uploadImage()
     {
-        // Validate the uploaded file
-        // $this->validate([
-        //     'photo' => '|image|mimes:jpeg,png,jpg,gif|max:2048', // Ensure it's an image
-        // ]);
-
-        // Move the uploaded file to the desired directory
+        $this->validate([
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+    
         $imagePath = $this->photo->store('images/uploads', 'public');
-
-        // Generate the public URL for the uploaded image
         $imageUrl = asset('storage/' . $imagePath);
-
-        // Return the image URL to the frontend
-        $this->dispatch('imageUploaded', ['url' => $imageUrl])->self();
+    
+        // Emit the event
+        // event(new ImageUploaded($imageUrl));
+        ImageUploaded::dispatch($imageUrl);
+        MessageBroadcasted::dispatch('success','Imagee uploaded successfully');
+        // Dispatch the image URL to the frontend
+        // $this->dispatch('imageUploaded', ['url' => $imageUrl]);
     }
-
     
     public function render()
     {

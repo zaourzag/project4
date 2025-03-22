@@ -4,23 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Laravel\Sanctum\HasApiTokens;
 use Laravel\Scout\Searchable;
 
 class Product extends Model
 {
-    use HasFactory, Searchable, HasApiTokens;
+    use HasFactory, Searchable;
     protected $table = 'producten';
     protected $fillable = [
         'naam',
         'omschrijving',
         'prijs',
         'afbeelding',
+        'aantal', // Add the quantity field,
     ];
     public $timestamps = false; // Disable timestamps
-    public function tokens()
-    {
-        return $this->hasMany(PersonalAccessToken::class);
-    }
 
 }

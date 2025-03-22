@@ -12,8 +12,7 @@
         {{ $slot }}
     </main>
  
-    @livewireScripts
-     @fluxScripts
+   
      
      <script src="https://cdn.jsdelivr.net/npm/izitoast@1.4.0/dist/js/iziToast.min.js">
     </script>
@@ -23,7 +22,9 @@
     <script src="{{ asset('js/app.js') }}"></script>
     @endassets --}}
     @stack('scripts')
-    @include('partials.footer')
 
+    @include('partials.footer')
+ @livewireScripts
+     @fluxScripts
 </body>
 </html>

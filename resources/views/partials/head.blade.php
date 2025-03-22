@@ -13,5 +13,5 @@
 <link href="https://cdn.jsdelivr.net/npm/izitoast@1.4.0/dist/css/iziToast.min.css" rel="stylesheet" type="text/css" />
 <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
 
-<link rel="stylesheet" href="{{ asset('css/app.css') }}">
+{{-- <link rel="stylesheet" href="{{ asset('css/app.css') }}"> --}}
 @endassets

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Events\ProductAdded;
 
 use App\Models\Product;
 
@@ -38,7 +39,7 @@ class productController  extends Controller
         $product->prijs = $validated['price'];
         $product->afbeelding = $validated['image']; // Save the image URL
         $product->save();
-    
+        ProductAdded::dispatch($product);
         return response()->json(['message' => 'Product added successfully', 'product' => $request->all()]);
     }
 

@@ -118,7 +118,17 @@
         </flux:sidebar>
 
         {{ $slot }}
-
+        <script>
+            window.userID = {{ optional(auth()->user())->id }};
+            let userId = window.userID;
+        Echo.private(`messages.${userId}`) // Replace `userId` with the authenticated user's ID
+        .listen('.message.broadcasted', (event) => {
+            console.log('Message received:', event);
+            $wire.showMessage('success', event.message);
+        });
+        
+            
+        </script>
         @fluxScripts
     </body>
 </html>

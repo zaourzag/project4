@@ -1,6 +1,6 @@
 <flux:header container class="bg-zinc-50 dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-700">
     <!-- Sidebar toggle button for mobile -->
-    <flux:brand href="#" logo="/images/Logo.svg    }}" name="Acme Inc." class="max-lg:hidden flex dark:hidden" />
+    <flux:brand href="#" logo="/images/Logo.svg" name="Acme Inc." class="max-lg:hidden flex dark:hidden" />
     <flux:brand href="#" logo="/images/logo2.svg" name="Acme Inc." class="max-lg:hidden! hidden dark:flex" />
 
     <div x-data="{ open: false }" class="lg:hidden relative">
