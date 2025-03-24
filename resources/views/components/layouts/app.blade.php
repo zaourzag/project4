@@ -3,15 +3,24 @@
         {{ $slot }}
     </flux:main>
     <script>
-    window.userID = {{ optional(auth()->user())->id }};
-    let userId = window.userID;
-Echo.private(`messages.${userId}`) // Replace `userId` with the authenticated user's ID
-.listen('.message.broadcasted', (event) => {
-    console.log('Message received:', event);
-    $wire.showMessage('success', event.message);
-});
+        document.addEventListener('DOMContentLoaded', function () {
+            if (!window.userID) {
+                console.error('User ID is not defined.');
+                return;
+            }
 
-    
-</script>
+            Echo.private(`messages.${window.userID}`)
+                .listen('.message.broadcasted', (event) => {
+                    console.log('Message received:', event);
 
+                    // Display the message using iziToast
+                    window.iziToast[event.state]({
+                        title: '',
+                        message: event.message,
+                        position: 'topRight',
+                        timeout: 3000, //Display Time
+                    });
+                });
+        });
+    </script>
 </x-layouts.app.navbar>

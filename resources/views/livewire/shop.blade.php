@@ -21,37 +21,30 @@
 </div>
 @script
 <script>
-    $wire.on('showSuccessMessage', message => {
-        alert(message);
-    });
-</script>
-@endscript
-@script
-<script>
-   
     $js("addToCart", (id, name, price, image) => {
-        fetch('/api/cart/add', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-            },
-            body: JSON.stringify({
+        axios.post('/api/cart/add', {
+      
                 id: id,
                 name: name,
                 price: price,
                 image: image,
                 quantity: 1,
-            }),
-        })
-            .then(response => response.json())
-            .then(data => {
-                Livewire.dispatch("cartUpdated"); // Emit Livewire event to update the cart count
-                $wire.showMessage("success", data.message);
-                
-
             })
-            .catch(error => $wire.showMessage('error', error));
-    })
+            .then(data => {
+                // Dispatch the event to the backend
+                data.message = `${name} added to cart`;
+                axios.post('/broadcast-event', {
+                    state: 'success',
+                    message: data.message,
+                })
+                    .then(eventResponse => {
+                        console.log('Event dispatched:', eventResponse.data);
+                    })
+                    .catch(eventError => console.error('Error dispatching event:', eventError));
+
+                Livewire.dispatch("cartUpdated"); // Emit Livewire event to update the cart count
+            })
+            .catch(error => console.error('Error:', error));
+    });
 </script>
 @endscript

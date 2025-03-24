@@ -21,7 +21,7 @@
             <!-- Total and Clear Cart button -->
             <div class="mt-6">
                 <p class="text-xl font-bold">Total: €{{ $total }}</p>
-                <flux:button wire:click="clearCart" class="bg-blue-500 text-white px-6 py-2 mt-4 rounded hover:bg-blue-600">Clear Cart</flux:button>
+                <flux:button wire:click="$js.clearCart()" class="bg-blue-500 text-white px-6 py-2 mt-4 rounded hover:bg-blue-600">Clear Cart</flux:button>
             </div>
         @endif
     </div>
@@ -42,9 +42,42 @@
             .then(response => response.json())
             .then(data => {
                 Livewire.dispatch("cartUpdated2"); // Emit Livewire event to refresh the cart
-                $wire.showMessage("success", data.message);
+                axios.post('/broadcast-event', {
+                    state: 'success',
+                    message: data.message,
+                })
+                    .then(eventResponse => {
+                        console.log('Event dispatched:', eventResponse.data);
+                    })
+                    .catch(eventError => console.error('Error dispatching event:', eventError));
+
+                Livewire.dispatch("cartUpdated"); // Emit Livewire event to update the cart count
             })
+        
             .catch(error => console.error('error', error));
+    });
+</script>
+@endscript
+@script
+<script>
+    $js("clearCart", (a) => {
+        console.log('Cart cleared');
+        axios.post('/api/cart/clear').then((response) => {
+                    Livewire.dispatch('cartUpdated2');
+
+            axios.post('/broadcast-event', {
+                state: 'success',
+                message: response.data.message,
+            })
+                .then(eventResponse => {
+                    console.log('Event dispatched:', eventResponse.data);
+                })
+                .catch(eventError => console.error('Error dispatching event:', eventError));
+                        Livewire.dispatch("cartUpdated"); // Emit Livewire event to update the cart count
+
+        })
+        .catch(error => console.error('Error:', error));
+
     });
 </script>
 @endscript

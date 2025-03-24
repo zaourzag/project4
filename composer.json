@@ -11,8 +11,10 @@
     "require": {
         "php": "^8.2",
         "bluemmb/faker-picsum-photos-provider": "2.0",
+        "devdavido/laravel-reporto": "^1.9",
         "laravel/framework": "^12.0",
         "laravel/horizon": "^5.31",
+        "laravel/pulse": "^1.4",
         "laravel/reverb": "^1.0",
         "laravel/sanctum": "^4.0",
         "laravel/scout": "^10.14",

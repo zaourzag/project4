@@ -10,6 +10,8 @@ use App\Livewire\About;
 use App\Http\Controllers\ShoppingCartController;
 use App\Livewire\ZoekProducten;
 use App\Livewire\Dash\Addproduct;
+use App\Http\Controllers\EventController;
+
 // use App\Livewire\Dash\Addproduct;
 Route::middleware("auth")->group(function () {
     Route::get('cart', Cart::class)->name('cart');
@@ -24,6 +26,7 @@ Route::middleware("auth")->group(function () {
 // });
 
 
+Route::post('/broadcast-event', [EventController::class, 'broadcastEvent']);
 Route::prefix('api/cart')->group(function () {
 
     Route::post('/add', [ShoppingCartController::class, 'add'])->name('cart.add');

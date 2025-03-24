@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Events\MessageBroadcasted;
 
 use Illuminate\Http\Request;
 
@@ -34,7 +35,7 @@ class ShoppingCartController extends Controller
         }
     
         $request->session()->put('cart', $cart);
-    
+
         return response()->json(['message' => 'Product added to cart', 'cart' => $cart]);
     }
 

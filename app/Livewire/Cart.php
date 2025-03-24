@@ -39,14 +39,6 @@ class Cart extends Component
         $this->calculateTotal();
     }
 
-    #[on("clearCart")]
-    public function clearCart()
-    {
-        session()->forget('cart');
-        $this->dispatch('cartUpdated'); // Emit the event to notify other components
-        $this->refreshCart(); // Refresh the cart data
-        $this->dispatch('showMessage', 'success', 'Cart cleared!');
-    }
 
     public function removeItem($itemId)
     {
