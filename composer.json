@@ -12,6 +12,7 @@
         "php": "^8.2",
         "bluemmb/faker-picsum-photos-provider": "2.0",
         "devdavido/laravel-reporto": "^1.9",
+        "http-interop/http-factory-guzzle": "^1.2",
         "laravel/framework": "^12.0",
         "laravel/horizon": "^5.31",
         "laravel/pulse": "^1.4",
@@ -21,6 +22,7 @@
         "laravel/tinker": "^2.10.1",
         "livewire/flux": "^2.0",
         "livewire/volt": "^1.7.0",
+        "meilisearch/meilisearch-php": "^1.13",
         "tonystore/livewire-notification": "^1.1"
     },
     "require-dev": {

@@ -87,9 +87,16 @@
             })
             .then(response => response.json())
             .then(data => {
-        $wire.showMessage("success", data.message);
-    
-    
+   axios.post('/broadcast-event', {
+                    state: 'success',
+                    message: data.message,
+                })
+                    .then(eventResponse => {
+                        console.log('Event dispatched:', eventResponse.data);
+                    })
+                    .catch(eventError => console.error('Error dispatching event:', eventError));
+
+                Livewire.dispatch("cartUpdated"); // Emit Livewire event to update the cart count
             })
             .catch(error => $wire.showMessage('Error', error));
         })

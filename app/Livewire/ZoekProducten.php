@@ -6,11 +6,11 @@ use Livewire\Attributes\Url;
 use Livewire\WithPagination;
 use App\Models\Product;
 use Livewire\Component;
-// use App\Traits\MessageTrait;
+use App\Traits\MessageTrait;
 class ZoekProducten extends Component
 {
     use WithPagination;
-    // use MessageTrait;
+    use MessageTrait;
 
     #[Url]
     public $query = '';
@@ -35,7 +35,7 @@ class ZoekProducten extends Component
 
     public function render()
     {
-        $producten = Product::where('naam', 'like', '%'.$this->query.'%')
+        $producten = Product::search($this->query)
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate(10);
 

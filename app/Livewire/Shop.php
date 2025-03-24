@@ -1,31 +1,32 @@
 <?php
 namespace App\Livewire;
 
-use Illuminate\Database\Eloquent\Casts\Json;
 use Livewire\Component;
 use App\Models\Product;
-use Illuminate\Support\Facades\Http;
-use Livewire\Attributes\Layout;
-// USE App\Livewire\CartCount;
-use App\Traits\MessageTrait;
-use Livewire\Attributes\on;
-
-use app\http\Controllers\ShoppingCartController;
 use Livewire\WithPagination;
-// use App\Livewire\CartCount;
+use Livewire\Attributes\Url;
 
 class Shop extends Component
 {
-    // protected $listeners = ['cartUpdated' => 'showSuccessMessage'];
-    use MessageTrait;
     use WithPagination;
-    public function render()    
+
+    #[Url]
+    public $paginate = 10; // Default to 10 items per page
+
+    // Add this method to handle pagination updates
+    public function updatedPaginate($value)
     {
-        $products = Product::all();
-        return view('livewire.shop', ['products' => $products]);
+        \Log::info('Paginate updated to: ' . $value); // Debug log
+        $this->resetPage();
     }
 
-   
+    public function render()
+    {
+        // Check if "all" is selected, fetch all products without pagination
+        $products = $this->paginate === 'all'
+            ? Product::all()
+            : Product::paginate($this->paginate);
 
-    
+        return view('livewire.shop', ['products' => $products]);
+    }
 }
