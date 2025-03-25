@@ -52,12 +52,23 @@ class User extends Authenticatable
     /**
      * Get the user's initials
      */
-    public function initials(): string
-    {
-        return Str::of($this->name)
-            ->explode(' ')
-            ->map(fn (string $name) => Str::of($name)->substr(0, 1))
-            ->implode('');
+    // public function initials(): string
+    // {
+    //     return Str::of($this->name)
+    //         ->explode(' ')
+    //         ->map(fn (string $name) => Str::of($name)->substr(0, 1))
+    //         ->implode('');
+    // }
+    public function initials()
+{
+    $parts = array_filter(explode(' ', trim($this->name)));
+    $initials = '';
+    
+    foreach ($parts as $part) {
+        $initials .= strtoupper(substr($part, 0, 1));
     }
+    
+    return $initials ?: '?';
+}
 
 }

@@ -49,4 +49,20 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
 });
 
+
+// Register Folio pages
+
+
+// Basic routes
+
+
+// Admin routes with explicit definitions
+
+
+// Laravel Folio configuration (register after explicit routes)
+use Laravel\Folio\Folio;
+
+Folio::path(resource_path('views/pages'))->middleware([
+    'admin/*' => ['web', 'auth'], // Add appropriate middleware
+]);
 require __DIR__.'/auth.php';
