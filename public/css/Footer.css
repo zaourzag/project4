@@ -1,0 +1,115 @@
+body {
+    font-family: Italianno;
+    margin: 0;
+    padding: 0;
+}
+
+#footer {
+    background-color: #86E3CE;
+    color: #333;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+#footer #left, #footer #middle, #footer #right {
+    flex: 1;
+    margin: 10px;
+}
+
+#footer #left p, #footer #right p {
+    margin: 5px 0;
+}
+
+#footer #right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border: 1px solid #FCDBBA;
+    border-radius: 10px;
+    padding: 5px;
+    background-color: #FCDBBA;
+    max-width: 500px;
+    overflow: hidden;
+}
+
+#footer .social {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+}
+
+#footer .social img {
+    width: 30px;
+    height: 30px;
+    margin: 0 5px;
+    border-radius: 50%;
+    background-color: #CCABD8;
+    padding: 5px;
+}
+
+#footer #left p:first-child {
+    font-weight: bold;
+    color: #FA897B;
+}
+
+#footer #right p:first-child {
+    font-weight: bold;
+    color: #FA897B;
+}
+
+#footer #left p, #footer #right p {
+    color: #333;
+}
+
+#footer #left p:nth-child(2), #footer #left p:nth-child(3), #footer #left p:nth-child(4), #footer #left p:nth-child(5) {
+    color: #333;
+}
+
+#footer .social p {
+    color: #333;
+    margin: 0;
+}
+
+#footer #middle p {
+    color: #FA897B;
+    text-align: center;
+}
+
+#footer #right p {
+    color: #000;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #FCDBBA;
+}
+
+/* Added styles for #right form */
+#right form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#right input[type="email"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+#right button {
+    padding: 8px 12px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#right button:hover {
+    background-color: #0056b3;
+}

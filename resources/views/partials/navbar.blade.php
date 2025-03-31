@@ -1,7 +1,7 @@
 <flux:header container class="bg-zinc-50 dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-700">
     <!-- Sidebar toggle button for mobile -->
-    <flux:brand href="#" logo="/images/Logo.svg" name="Acme Inc." class="max-lg:hidden flex dark:hidden" />
-    <flux:brand href="#" logo="/images/logo2.svg" name="Acme Inc." class="max-lg:hidden! hidden dark:flex" />
+    <flux:brand href="#" logo="/images/Logo.svg" name="Heavenly socks" class="max-lg:hidden flex dark:hidden" />
+    <flux:brand href="#" logo="/images/logo2.svg" name="Heavenly socks" class="max-lg:hidden! hidden dark:flex" />
 
     <div x-data="{ open: false }" class="lg:hidden relative">
         <flux:button 
@@ -53,7 +53,7 @@
 
     <!-- Navbar actions -->
     <flux:navbar class="mr-4">
-        <flux:navbar.item icon="magnifying-glass" href="#" label="Search" />
+        <flux:navbar.item icon="magnifying-glass" href="{{ route('zoek-producten') }}" label="Search" />
         <flux:dropdown x-data align="end">
             <flux:button variant="subtle" square class="group" aria-label="Preferred color scheme">
                 <flux:icon.sun x-show="$flux.appearance === 'light'" variant="mini" class="text-zinc-500 dark:text-white" />
@@ -68,49 +68,66 @@
                 <flux:menu.item icon="computer-desktop" x-on:click="$flux.appearance = 'system'">System</flux:menu.item>
             </flux:menu>
         </flux:dropdown>
-        <flux:dropdown position="bottom" align="start">
-            <flux:profile
-                :name="auth()->user()->name"
-                :initials="auth()->user()->initials()"
-                icon-trailing="chevrons-up-down"
-            />
+        <!-- Check if user is logged in -->
+        @auth
+            <flux:dropdown position="bottom" align="start">
+                <flux:profile 
+                    :name="auth()->user()->name"
+                    avatar:color="cyan"
+                    :initials="auth()->user()->initials()"
+                    icon-trailing="chevrons-up-down"
+                />
 
-            <flux:menu class="w-[220px]">
-                <flux:menu.radio.group>
-                    <div class="p-0 text-sm font-normal">
-                        <div class="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                            <span class="relative flex h-8 w-8 shrink-0 overflow-hidden rounded-lg">
-                                <span
-                                    class="flex h-full w-full items-center justify-center rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white"
-                                >
-                                    {{ auth()->user()->initials() }}
+                <flux:menu class="w-[220px]">
+                    <flux:menu.radio.group>
+                        <div class="p-0 text-sm font-normal">
+                            <div class="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+                                <span class="relative flex h-8 w-8 shrink-0 overflow-hidden rounded-lg">
+                                    <span class="flex h-full w-full items-center justify-center rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white">
+                                        {{ auth()->user()->initials() }}
+                                    </span>
                                 </span>
-                            </span>
 
-                            <div class="grid flex-1 text-left text-sm leading-tight">
-                                <span class="truncate font-semibold">{{ auth()->user()->name }}</span>
-                                <span class="truncate text-xs">{{ auth()->user()->email }}</span>
+                                <div class="grid flex-1 text-left text-sm leading-tight">
+                                    <span class="truncate font-semibold">{{ auth()->user()->name }}</span>
+                                    <span class="truncate text-xs">{{ auth()->user()->email }}</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </flux:menu.radio.group>
+                    </flux:menu.radio.group>
 
-                <flux:menu.separator />
+                    <flux:menu.separator />
 
-                <flux:menu.radio.group>
-                    <flux:menu.item :href="route('settings.profile')" icon="cog" wire:navigate>{{ __('Settings') }}</flux:menu.item>
-                </flux:menu.radio.group>
+                    <flux:menu.radio.group>
+                        <flux:menu.item :href="route('settings.profile')" icon="cog" wire:navigate>{{ __('Settings') }}</flux:menu.item>
+                    </flux:menu.radio.group>
+                    
+                    @if (auth()->user()->is_admin == true)
+                        <flux:menu.radio.group>
+                            <flux:menu.item href="/admin/dashboard" icon="key">Admin</flux:menu.item>
+                        </flux:menu.radio.group>
+                    @endif
 
-                <flux:menu.separator />
-
-                <form method="POST" action="{{ route('logout') }}" class="w-full">
-                    @csrf
-                    <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="w-full">
-                        {{ __('Log Out') }}
-                    </flux:menu.item>
-                </form>
-            </flux:menu>
-        </flux:dropdown>
+                    <form method="POST" action="{{ route('logout') }}" class="w-full">
+                        @csrf
+                        <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="w-full">
+                            {{ __('Log Out') }}
+                        </flux:menu.item>
+                    </form>
+                </flux:menu>
+            </flux:dropdown>
+        @else
+            <!-- Login button for unauthenticated users -->
+            <flux:button 
+                href="{{ route('login') }}" 
+                variant="primary" 
+                size="sm" 
+                class="inline-flex items-center"
+            >
+                <flux:icon name="arrow-right-start-on-rectangle" class="w-4 h-4 mr-2" />
+                Login
+            </flux:button>
+        @endauth
     </flux:navbar>
 
     <!-- Cart count -->

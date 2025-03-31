@@ -1,7 +1,7 @@
 
 
 
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg bg-white">
     <flux:input type="text" wire:model.live="query" placeholder="Search users"/>
     
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">

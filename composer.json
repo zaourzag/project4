@@ -79,6 +79,11 @@
         "optimize-autoloader": true,
         "preferred-install": "dist",
         "sort-packages": true,
+        "platform": {
+            "php": "8.4.5",
+            "ext-pcntl": "8.4.5",
+            "ext-posix": "8.4.5"
+                },
         "allow-plugins": {
             "pestphp/pest-plugin": true,
             "php-http/discovery": true

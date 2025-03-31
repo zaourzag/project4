@@ -1,32 +1,27 @@
-<?php
-// filepath: c:\Users\zaour\source\web1a\project\project-4-test\socks2\resources\views\pages\admin\dashboard.blade.php
-
+@php
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
-// Get statistics
-$stats = [
-    'products' => Product::count(),
-    'users' => User::count(),
-    'latest_products' => Product::get()->take(5),
-    // You can add more stats as needed
-];
-
-// Get some activity data (you might need to adjust this based on your models)
-$recent_activity = Product::get()->take(5);
-
-// Convert to format usable by charts
-$chart_data = [
-    'labels' => $recent_activity->pluck('date')->map(function($date) {
-        return \Carbon\Carbon::parse($date)->format('M d');
-    })->toArray(),
-    'data' => $recent_activity->pluck('count')->toArray(),
-];
-?>
+// Get statistics directly
+$stats = Cache::remember('dashboard_stats', 600, function () {
+    return [
+        // Simple count queries
+        'products' => DB::table('producten')->count(),
+        'users' => DB::table('users')->count(),
+        
+        // Optimized latest products query - select only needed fields
+        'latest_products' => DB::table('producten')
+            ->select(['id', 'naam', 'prijs', 'omschrijving']) // Select only needed columns
+            ->orderBy('id', 'desc')
+            ->limit(5)
+            ->get()
+    ];
+});
+@endphp
 
 <x-layouts.admin title="Dashboard">
-    <!-- Welcome Section -->
+    <!-- Welcome Sectioxn -->
     <div class="mb-8">
         <h1 class="text-3xl font-bold">Welcome, {{ auth()->user()->name }}</h1>
         <p class="mt-2 text-gray-600 dark:text-gray-400">Here's what's happening with your store today.</p>

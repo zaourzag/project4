@@ -1,16 +1,16 @@
-<div>
-    <div>
-        <flux:select wire:model.live="paginate" class="border rounded p-2">
+<div class='bg-white'>
+    
+        <flux:select wire:model.live="paginate" class="border rounded p-2" style='color: black;'>
             <flux:select.option value="10">10</flux:select.option>
             <flux:select.option value="20">20</flux:select.option>
             <flux:select.option value="100">100</flux:select.option>
             <flux:select.option value="all">All</flux:select.option>
         </flux:select>
-    </div>
+   
     
     <!-- ...rest of your code... -->
     <!-- Product Grid -->
-    <div class="grid grid-flow-row grid-cols-1 md:grid-cols-3 gap-4">
+    <div class="grid grid-flow-row grid-cols-1 md:grid-cols-3 gap-4 bg-zinc-50" >
         @foreach($products as $product)
             <flex:field class="border p-4">
                 <img src="{{ $product->afbeelding }}" alt="{{ $product->naam }}" class="w-full h-48 object-cover">
