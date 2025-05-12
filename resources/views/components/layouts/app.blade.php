@@ -1,4 +1,4 @@
-<x-layouts.app.navbar :title="$title ?? null">
+<x-layouts.app.navbar :title="$title ?? 'Heavenly socks'">
     <flux:main>
         {{ $slot }}
     </flux:main>
@@ -15,7 +15,7 @@
 
                     // Display the message using iziToast
                     window.iziToast[event.state]({
-                        title: '',
+                        title: 'Heavenly socks',
                         message: event.message,
                         position: 'topRight',
                         timeout: 3000, //Display Time
