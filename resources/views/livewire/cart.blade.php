@@ -2,7 +2,7 @@
     <h1 class="text-2xl font-bold mb-4">Your Shopping Cart</h1>
     <div>
         @if(empty($cart))
-            <p class="text-gray-500">Your cart is empty.</p>
+            <p class="text-gray-500">{{ __('messages.your_cart_is_empty') }}</p>
         @else
             <!-- Responsive grid layout -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -11,9 +11,9 @@
                     <flux:field class="border p-2 md:p-4 rounded-lg shadow-md color-zinc-50 text-sm md:text-base">
                         <img src="{{ $item['image'] }}" alt="{{ $item['name'] }}" class="w-full h-32 md:h-48 object-cover rounded-md mb-2 md:mb-4">
                         <h2 class="text-sm md:text-lg font-semibold">{{ $item['name'] }}</h2>
-                        <p class=" text-sm md:text-base">Price: €{{ $item['price'] }}</p>
-                        <p class=" text-sm md:text-base">Quantity: {{ $item['quantity'] }}</p>
-                        <p class=" font-bold text-sm md:text-base">Total: €{{ $item['price'] * $item['quantity'] }}</p>
+                        <p class=" text-sm md:text-base">{{ __('price') }}: €{{ $item['price'] }}</p>
+                        <p class=" text-sm md:text-base">{{ __('quantity') }}: {{ $item['quantity'] }}</p>
+                        <p class=" font-bold text-sm md:text-base">{{__('total')}} €{{ $item['price'] * $item['quantity'] }}</p>
                         <flux:button wire:click="$js.removeFromCart({{ $item['id'] }})" class="bg-red-500 text-white px-2 py-1 md:px-4 md:py-2 mt-2 md:mt-4 rounded hover:bg-red-600">Remove from Cart</flux:button>
                     </flux:field>
                 @endforeach
@@ -53,7 +53,7 @@
 
                 Livewire.dispatch("cartUpdated"); // Emit Livewire event to update the cart count
             })
-        
+
             .catch(error => console.error('error', error));
     });
 </script>

@@ -1,8 +1,6 @@
 <?php
 use App\Livewire\Contact;
-use App\Livewire\Jsgame1;
-use App\Livewire\Jsgame2;
-use App\Livewire\Jsgame3;
+
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
@@ -22,9 +20,7 @@ Route::group([], function () {
     Route::get('shop', Shop::class)->name('shop');
     Route::get('about', About::class)->name('about');
     Route::get('/', Home::class)->name('home');
-    Route::get('/games/memory', Jsgame1::class)->name('memory');
-    Route::get('/games/game2', Jsgame2::class)->name('jsgame2');
-    Route::get('/game/game3', Jsgame3::class)->name('jsgame3');
+   
     Route::get('/contact', Contact::class)->name('contact');
 });
 Route::post('/send-mail', [MailController::class, 'send']);
@@ -75,4 +71,5 @@ use Laravel\Folio\Folio;
 Folio::path(resource_path('views/pages'))->middleware([
     'admin/*' => ['web', 'auth'], // Add appropriate middleware
 ]); 
+
 require __DIR__.'/auth.php';

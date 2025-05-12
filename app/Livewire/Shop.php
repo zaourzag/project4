@@ -16,7 +16,7 @@ class Shop extends Component
     // Add this method to handle pagination updates
     public function updatedPaginate($value)
     {
-        \Log::info('Paginate updated to: ' . $value); // Debug log
+        Log::info('Paginate updated to: ' . $value); // Debug log
         $this->resetPage();
     }
 

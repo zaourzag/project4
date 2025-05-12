@@ -1,35 +1,41 @@
-@php
+<?php
+
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
+use function Laravel\Folio\render;
+use Illuminate\View\View;
 
-// Get statistics directly
+// Haal statistieken op (cached voor 10 minuten)
 $stats = Cache::remember('dashboard_stats', 600, function () {
     return [
-        // Simple count queries
-        'products' => DB::table('producten')->count(),
-        'users' => DB::table('users')->count(),
-        
-        // Optimized latest products query - select only needed fields
-        'latest_products' => DB::table('producten')
-            ->select(['id', 'naam', 'prijs', 'omschrijving']) // Select only needed columns
-            ->orderBy('id', 'desc')
-            ->limit(5)
-            ->get()
+        'products' => Product::count(),
+        'users' => User::count(),
+        'latest_products' => Product::latest()->get();
     ];
 });
-@endphp
+
+Log::debug('Dashboard stats:', $stats);
+
+// Geef weergave terug met data
+render(function (View $view) use ($stats) {
+    return $view->with('stats', $stats);
+});
+
+?>
 
 <x-layouts.admin title="Dashboard">
     <!-- Welcome Sectioxn -->
     <div class="mb-8">
-        <h1 class="text-3xl font-bold">Welcome, {{ auth()->user()->name }}</h1>
+        <h1 class="text-3xl font-bold">Welcome, </h1>
         <p class="mt-2 text-gray-600 dark:text-gray-400">Here's what's happening with your store today.</p>
     </div>
     
     <!-- Stats Cards -->
     <div class="mb-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        <!-- Products Stats -->
+        <!-- Products Stats --> 
         <div class="overflow-hidden rounded-lg bg-white shadow-sm dark:bg-zinc-900">
             <div class="px-4 py-5 sm:p-6">
                 <div class="flex items-center">

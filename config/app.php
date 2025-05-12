@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Heavenly socks'),
 
     /*
     |--------------------------------------------------------------------------
@@ -83,6 +83,11 @@ return [
     'fallback_locale' => env('APP_FALLBACK_LOCALE', 'en'),
 
     'faker_locale' => env('APP_FAKER_LOCALE', 'nl_NL'),
+
+    'available_locales' => [
+        'en' => 'English',
+        'nl' => 'Nederlands',
+    ],
 
     /*
     |--------------------------------------------------------------------------

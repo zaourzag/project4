@@ -17,6 +17,6 @@ class Product extends Model
         'afbeelding',
         'aantal', // Add the quantity field,
     ];
-    public $timestamps = false; // Disable timestamps
+    public $timestamps = true; // Enable timestamps
 
 }

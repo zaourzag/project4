@@ -2,7 +2,6 @@
     <!-- Sidebar toggle button for mobile -->
     <flux:brand href="#" logo="/images/Logo.svg" name="Heavenly socks" class="max-lg:hidden flex dark:hidden" />
     <flux:brand href="#" logo="/images/logo2.svg" name="Heavenly socks" class="max-lg:hidden! hidden dark:flex" />
-
     <div x-data="{ open: false }" class="lg:hidden relative">
         <flux:button 
             @click="open = !open" 
@@ -53,6 +52,8 @@
 
     <!-- Navbar actions -->
     <flux:navbar class="mr-4">
+    @livewire('locale-switcher')
+
         <flux:navbar.item icon="magnifying-glass" href="{{ route('zoek-producten') }}" label="Search" />
         <flux:dropdown x-data align="end">
             <flux:button variant="subtle" square class="group" aria-label="Preferred color scheme">
